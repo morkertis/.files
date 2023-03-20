@@ -87,7 +87,7 @@ ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # plugins=(git)
-plugins=(git colored-man-pages colorize pip python pyenv brew osx zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git colored-man-pages colorize pip python pyenv brew macos zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -118,10 +118,10 @@ source $HOME/.files/aliases/.aliases
 # export HOME="$HOME_BKP"
 
 # $ title tabName
-function title {
-    export PIB="$(dig +short myip.opendns.com @resolver1.opendns.com)"
-    echo -ne "\033]0;"$USERNAME on $PIB"\007"
-}
+#function title {
+#    export PIB="$(dig +short myip.opendns.com @resolver1.opendns.com)"
+#    echo -ne "\033]0;"$USERNAME on $PIB"\007"
+#}
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -132,7 +132,7 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(virtualenv time)
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
-title
+#title
 
 # add github ssh key to agent
 #FILE=~/.ssh/github_key
