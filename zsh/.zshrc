@@ -132,21 +132,5 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(virtualenv time)
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
-#title
-
-# add github ssh key to agent
-#FILE=~/.ssh/github_key
-#eval "$(ssh-agent -s)"
-
-#if [ -f "$FILE" ]; then
-#    if [ $( ssh-add -l | grep -q "$FILE" ) ]; then
-#        echo "github key already set"
-#    else
-#	ssh-add "$FILE"
-#    fi
-#fi
-
-#source ~/.files/scripts/start_ssh_agent.sh
-
-#export PATH=/usr/local/cuda-10.2/bin${PATH:+:${PATH}}$ 
-#export LD_LIBRARY_PATH=/usr/local/cuda-10.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+#export LC_ALL=en_US.UTF-8
+#export LC_CTYPE=en_US.UTF-8
