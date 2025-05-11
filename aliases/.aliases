@@ -9,8 +9,8 @@ alias hg="history | grep"
 alias ipython=ipython3
 alias ipy=ipython
 
-alias deactivate='pyenv deactivate'
-alias activate='pyenv activate'
+#alias deactivate='pyenv deactivate'
+#alias activate='pyenv activate'
 
 # pip stuff
 # pip freeze without dependencies 
