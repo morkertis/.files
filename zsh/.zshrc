@@ -7,9 +7,6 @@ fi
 
 #  If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH="$HOME/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
 
 # Path to your oh-my-zsh installation.
 # export HOME_BKP="$HOME"
@@ -87,7 +84,7 @@ ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # plugins=(git)
-plugins=(git colored-man-pages colorize pip python pyenv brew macos zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git colored-man-pages colorize pip python brew macos zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -126,11 +123,18 @@ source $HOME/.files/aliases/.aliases
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(virtualenv time)
-
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+# export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+# POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(virtualenv time)
 
 #export LC_ALL=en_US.UTF-8
 #export LC_CTYPE=en_US.UTF-8
+
+# Fix completions for uv run.
+_uv_run_mod() {
+    if [[ "$words[2]" == "run" && "$words[CURRENT]" != -* ]]; then
+        _arguments '*:filename:_files'
+    else
+        _uv "$@"
+    fi
+}
+compdef _uv_run_mod uv

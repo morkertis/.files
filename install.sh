@@ -8,11 +8,8 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
 	libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
 	xz-utils tk-dev libffi-dev liblzma-dev python-openssl git ncdu htop unzip  
 
-	# pyenv
-	sudo apt install -y python3-venv
-	export PYENV_ROOT=~/.pyenv
-	git clone --depth=1 https://github.com/pyenv/pyenv.git $PYENV_ROOT
-	git clone --depth=1 https://github.com/pyenv/pyenv-virtualenv.git $PYENV_ROOT/plugins/pyenv-virtualenv
+	# uv
+	curl -LsSf https://astral.sh/uv/install.sh | sh
 
 	# zsh
 	sudo apt-get install -y zsh 
@@ -20,7 +17,10 @@ if [[ "$OSTYPE" == "linux-gnu" ]]; then
 	sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-        # zsh
+	#uv
+	brew install uv
+	
+	# zsh
 	brew install zsh
 	chsh -s $(which zsh)
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
