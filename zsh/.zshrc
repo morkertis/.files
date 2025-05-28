@@ -84,7 +84,7 @@ ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # plugins=(git)
-plugins=(git colored-man-pages colorize pip python brew macos zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(virtualenv git colored-man-pages colorize pip python brew macos zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -138,3 +138,6 @@ _uv_run_mod() {
     fi
 }
 compdef _uv_run_mod uv
+
+#Need to change in .p10k.zsh file if it is updated
+#POWERLEVEL9K_VIRTUALENV_SHOW_PYTHON_VERSION=true
