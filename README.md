@@ -1,4 +1,4 @@
-# Yonti's dotfiles
+# Dotfiles
 My basic environment setup.  
 Work in progress.  
 Always
