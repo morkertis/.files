@@ -3,26 +3,42 @@
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
 	# ubuntu installs
+	echo "Detected Linux. Starting setup..."
+
+	echo "Updating package list..."
 	sudo apt update
+
+	echo "Installing essential packages..."
 	sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev \
 	libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
 	xz-utils tk-dev libffi-dev liblzma-dev python-openssl git ncdu htop unzip  
 
 	# uv
+	echo "Installing uv..."
 	curl -LsSf https://astral.sh/uv/install.sh | sh
 
 	# zsh
+	echo "Installing Zsh..."
 	sudo apt-get install -y zsh 
-	sudo chsh -s /bin/zsh $(whoami) 
+	sudo chsh -s /bin/zsh $(whoami)
+
+	echo "Installing Oh My Zsh..." 
 	sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 
 elif [[ "$OSTYPE" == "darwin"* ]]; then
+	#macos
+	echo "Detected macOS. Starting setup..."
+	
 	#uv
+	echo "Installing uv..."
 	brew install uv
 	
 	# zsh
+	echo "Installing Zsh..."
 	brew install zsh
 	chsh -s $(which zsh)
+
+	echo "Installing Oh My Zsh..." 
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 	
 else
