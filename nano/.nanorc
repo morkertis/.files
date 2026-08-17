@@ -1,2 +1,12 @@
-include ~/.files/nano/javascript.nanorc
-include "/usr/local/share/nano/*.nanorc"
+# Personal nano settings.
+#
+# No `include` lines here on purpose: nano errors out at startup on a pattern that
+# matches nothing, and the path to the bundled syntax files is platform-specific
+# (/usr/share/nano on Linux, /opt/homebrew/share/nano on Apple Silicon). The nano
+# package ships its own system nanorc that already includes them - /etc/nanorc on
+# Linux distros, $(brew --prefix)/etc/nanorc under Homebrew - so highlighting works
+# without any help from this file. See the nano note in README.md.
+#
+# Colours are left exactly as the bundled syntax files define them. To change one,
+# re-declare its rule here, e.g.:
+#   extendsyntax sh color #695 "(^|[[:blank:]])#.*"
