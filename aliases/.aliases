@@ -22,17 +22,18 @@ if [ -x "$(command -v nvidia-smi)" ]; then
   alias smi="watch -n 1 nvidia-smi"
 fi
 
+# $DOTFILES is exported by .zshrc; the fallback keeps this file usable on its own.
+ALIASES_DIR="${DOTFILES:-$HOME/.files}/aliases"
+
 # run private aliases
-FILE=~/.files/aliases/.private.aliases
-if [ -f "$FILE" ]; then 
-    source $FILE
-fi 
+if [ -f "$ALIASES_DIR/.private.aliases" ]; then
+    source "$ALIASES_DIR/.private.aliases"
+fi
 
 # run linux specific aliases
-if [[ "$OSTYPE" == "linux-gnu" ]]; then
-	FILE=~/.files/aliases/.linux.aliases
-	if [ -f "$FILE" ]; then
-    		source $FILE
+if [[ "$OSTYPE" == linux* ]]; then
+	if [ -f "$ALIASES_DIR/.linux.aliases" ]; then
+		source "$ALIASES_DIR/.linux.aliases"
 	fi
 fi
 
