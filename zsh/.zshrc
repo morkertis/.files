@@ -7,11 +7,13 @@ fi
 
 #  If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH="$HOME/.local/bin:$PATH"
+
+# Root of this dotfiles repo, resolved through the ~/.zshrc symlink (%x is this
+# file, :A resolves it), so the clone does not have to live in ~/.files.
+export DOTFILES="${${(%):-%x}:A:h:h}"
 
 # Path to your oh-my-zsh installation.
-# export HOME_BKP="$HOME"
-# export ZSH="$HOME/.files/zsh/.oh-my-zsh"
-# export HOME="$HOME/.files/zsh"
 export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
@@ -84,7 +86,11 @@ ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 # plugins=(git)
-plugins=(virtualenv git colored-man-pages colorize pip python brew macos zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(virtualenv git colored-man-pages colorize pip python)
+# brew and macos are no-ops off macOS
+[[ "$OSTYPE" == darwin* ]] && plugins+=(brew macos)
+# zsh-syntax-highlighting must stay last
+plugins+=(zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -110,7 +116,7 @@ source $ZSH/oh-my-zsh.sh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 
-source $HOME/.files/aliases/.aliases
+source "$DOTFILES/aliases/.aliases"
 
 # export HOME="$HOME_BKP"
 
@@ -130,14 +136,31 @@ source $HOME/.files/aliases/.aliases
 #export LC_CTYPE=en_US.UTF-8
 
 # Fix completions for uv run.
+# Homebrew's uv ships the _uv completion, the standalone installer used on Linux does
+# not, so generate it when it is missing - otherwise _uv below is undefined.
+if (( $+commands[uv] )) && [[ -z "${_comps[uv]:-}" ]]; then
+    eval "$(uv generate-shell-completion zsh)"
+fi
+
 _uv_run_mod() {
-    if [[ "$words[2]" == "run" && "$words[CURRENT]" != -* ]]; then
+    if [[ "${words[2]:-}" == "run" && "${words[CURRENT]}" != -* ]]; then
         _arguments '*:filename:_files'
-    else
+    elif (( $+functions[_uv] )); then
         _uv "$@"
+    else
+        _files
     fi
 }
 compdef _uv_run_mod uv
 
 #Need to change in .p10k.zsh file if it is updated
 #POWERLEVEL9K_VIRTUALENV_SHOW_PYTHON_VERSION=true
+
+# Machine-local config - API keys, tokens, work-only settings.
+# Not tracked by git; see zsh/.private.zsh.example. Sourced last so it can override.
+#
+# NEVER put `export SOME_API_KEY=...` (or any token/secret) in this file - it is
+# tracked in a public repo. Put it in zsh/.private.zsh, which git ignores.
+if [[ -f "$DOTFILES/zsh/.private.zsh" ]]; then
+	source "$DOTFILES/zsh/.private.zsh"
+fi
