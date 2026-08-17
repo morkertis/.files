@@ -1,10 +1,4 @@
-zsh/.oh-my-zsh
-zsh/.zsh_history
-zsh/.*.pre-oh-my-zsh
-zsh/.zcomp*
-
-bash
-
+# Machine-local config: API keys, tokens, work-only settings.
+# Covers zsh/.private.zsh and aliases/.private.aliases.
 .private.*
-
-gnome-terminal-colors-solarized/*
+!*.example
